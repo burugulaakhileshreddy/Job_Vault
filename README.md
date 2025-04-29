@@ -14,7 +14,13 @@ Store important communication or notes (like recruiter messages or interview fee
 
 Categorize applications for easy tracking and future reference
 
-This tool provides a streamlined alternative to managing your job search compared to storing everything in Excel sheets, emails, or random folders.
+This tool provides a streamlined alternative to managing your job search compared to storing everything in Excel sheets or random folders.
+
+This project is built using HTML and CSS for the frontend, and Python Django for the backend. It follows a clean, responsive design and utilizes Django’s powerful features to manage backend logic and database interactions.
+
+Frontend: HTML is used for structuring the content, while CSS styles the layout, ensuring a responsive and user-friendly interface.
+
+Backend: Django handles the server-side logic, offering a secure, scalable framework for the application. The project uses SQLite 3 as the inbuilt database for efficient data storage and management.
 
 Git Workflow 
 
