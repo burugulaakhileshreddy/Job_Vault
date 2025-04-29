@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Job - Job Vault</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .main-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4CAF50;
+        }
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="url"],
+        input[type="date"],
+        textarea,
+        select,
+        input[type="file"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #fafafa;
+        }
+        .submit-btn, .generate-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Full-width button with partition effect */
+        .generate-btn {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #4CAF50; /* Change button color */
+        }
+
+        .partition-line {
+            margin: 30px 0;
+            border-top: 2px solid #4CAF50; /* Green line partition */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Always show banner -->
+    <div class="banner">
+        Job Vault
+    </div>
+
+    <div class="main-container">
+        <h2>Add Job Entries</h2>
+
+        <!-- ✅ Step 1: Ask number of jobs -->
+        <form method="POST">
+            {% csrf_token %}
+            <label for="num_forms">How many jobs do you want to add?</label>
+            <input type="number" name="num_forms" id="num_forms" min="1" required>
+
+            <!-- Full-width button that spans the container -->
+            <button type="submit" class="generate-btn">Generate Forms</button>
+        </form>
+
+        <!-- ✅ Step 2: Show partition line and forms below -->
+        <div class="partition-line"></div>
+
+        {% if form_range %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="num_forms_form1" value="{{ num_forms }}">
+
+            {% for i in form_range %}
+            <div class="form-section">
+                <h3>Job {{ forloop.counter }}</h3>
+
+                <label for="job_type_{{ i }}">Job Type</label>
+                <select name="job_type_{{ i }}" id="job_type_{{ i }}" required>
+                    <option value="internship">Internship</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="c2c">C2C</option>
+                    <option value="w2">W2</option>
+                </select>
+
+                <label for="company_name_{{ i }}">Company Name</label>
+                <input type="text" name="company_name_{{ i }}" id="company_name_{{ i }}" required>
+
+                <label for="platform_{{ i }}">Platform</label>
+                <input type="text" name="platform_{{ i }}" id="platform_{{ i }}" required>
+
+                <label for="date_{{ i }}">Date</label>
+                <input type="date" name="date_{{ i }}" id="date_{{ i }}" required>
+
+                <label for="resume_{{ i }}">Resume</label>
+                <input type="file" name="resume_{{ i }}" id="resume_{{ i }}" required>
+
+                <label for="cover_letter_{{ i }}">Cover Letter</label>
+                <input type="file" name="cover_letter_{{ i }}" id="cover_letter_{{ i }}" required>
+
+                <label for="url_{{ i }}">Application Link</label>
+                <input type="url" name="url_{{ i }}" id="url_{{ i }}" required>
+
+                <label for="notes_{{ i }}">Notes</label>
+                <textarea name="notes_{{ i }}" id="notes_{{ i }}" rows="3" placeholder="Optional..."></textarea>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">Submit Jobs</button>
+        </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>

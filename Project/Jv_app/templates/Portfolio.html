@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .top-buttons {
+            text-align: right;
+            padding: 20px 30px 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .top-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .top-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .portfolio-list {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .portfolio-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .portfolio-item h3 {
+            margin: 0;
+        }
+
+        .portfolio-item .view-button {
+            background-color: #00A859; /* New beautiful green background */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .portfolio-item .view-button:hover {
+            background-color: #00944d; /* Slightly darker green on hover */
+        }
+
+        .portfolio-item .status {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .top-buttons {
+                padding: 10px;
+            }
+
+            .portfolio-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        Job Vault
+    </div>
+
+    <div class="container">
+        <h2>All Live Portfolios</h2>
+
+        <ul class="portfolio-list">
+            {% for portfolio in portfolios %}
+                <li class="portfolio-item">
+                    <div>
+                        <p class="status">
+                            <a class="view-button" href="{{ portfolio.Portfolio.url }}" target="_blank">{{ portfolio.Portfolio_Name }} Portfolio</a>
+                        </p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

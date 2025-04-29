@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Job Vault</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .top-buttons {
+            text-align: right;
+            padding: 20px 30px 0 30px;
+            display: flex;
+            justify-content: flex-end; /* This aligns the buttons to the right */
+            align-items: center;
+        }
+
+        .top-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .top-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .main-container {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .job-category-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .job-category {
+            background-color: #fff;
+            width: 250px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .job-category h3 {
+            margin: 10px 0 20px;
+            text-align: center;
+        }
+
+        .job-category .view-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .job-category .view-button:hover {
+            background-color: #45a049;
+        }
+
+        .jobs-applied-text {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        Job Vault
+    </div>
+
+    <!-- 🔼 Add Job + Logout buttons -->
+    <div class="top-buttons">
+        <button onclick="location.href='{% url 'Manage_Portfolio' %}'">Manage Portfolio</button>
+        <button onclick="location.href='{% url 'Add_Job' %}'">Add Job</button>
+        <button onclick="location.href='{% url 'Log_out' %}'">Logout</button>
+    </div>
+
+    <div class="main-container">
+        <div class="job-category-container">
+
+            <div class="job-category">
+                <button class="view-button" onclick="location.href='{% url 'Display_Jobs' 'internships' %}'" name="internships">View</button>
+                <h3>Internships</h3>
+                <div class="jobs-applied-text">Jobs Applied: {{ total_internships }}</div>
+            </div>
+
+            <div class="job-category">
+                <button class="view-button" onclick="location.href='{% url 'Display_Jobs' 'full_time' %}'" name="full_time">View</button>
+                <h3>FullTime</h3>
+                <div class="jobs-applied-text">Jobs Applied: {{ total_full_times }}</div>
+            </div>
+
+            <div class="job-category">
+                <button class="view-button" onclick="location.href='{% url 'Display_Jobs' 'c2c' %}'" name="c2c">View</button>
+                <h3>C2C</h3>
+                <div class="jobs-applied-text">Jobs Applied: {{ total_c2c }}</div>
+            </div>
+
+            <div class="job-category">
+                <button class="view-button" onclick="location.href='{% url 'Display_Jobs' 'w2' %}'" name="w2">View</button>
+                <h3>W2</h3>
+                <div class="jobs-applied-text">Jobs Applied: {{ total_w2 }}</div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

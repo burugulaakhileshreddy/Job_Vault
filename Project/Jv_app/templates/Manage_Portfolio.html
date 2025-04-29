@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Portfolio - Job Vault</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .top-buttons {
+            text-align: right;
+            padding: 20px 30px 0 30px;
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+            align-items: center;
+        }
+
+        .top-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .top-buttons button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .main-container {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .current-portfolio {
+            background-color: #fff;
+            width: 80%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .current-portfolio a {
+            color: #4CAF50;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .portfolio-table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .portfolio-table th,
+        .portfolio-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .portfolio-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .portfolio-table td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .portfolio-table td a:hover {
+            text-decoration: underline;
+        }
+
+        .portfolio-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Add Portfolio Modal */
+        #add-portfolio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #add-portfolio-modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        #add-portfolio-modal input[type="text"],
+        #add-portfolio-modal input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Buttons Styling */
+        .add-portfolio-button, .action-button, #add-portfolio-modal button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .add-portfolio-button:hover, .action-button:hover, #add-portfolio-modal button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Add Portfolio Modal Button Layout */
+        #add-portfolio-modal button {
+            width: 48%;
+            margin-right: 4%;
+        }
+
+        #add-portfolio-modal button:last-child {
+            margin-right: 0;
+        }
+
+        /* Checkbox to control modal visibility */
+        #add-portfolio-toggle {
+            display: none;
+        }
+
+        #add-portfolio-toggle:checked + #add-portfolio-modal {
+            display: flex;
+        }
+
+        #add-portfolio-modal-close {
+            background-color: #f44336;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #add-portfolio-modal-close:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        Manage Portfolio - Job Vault
+    </div>
+
+    <!-- Add Portfolio Button (Trigger Modal) -->
+    <div class="top-buttons">
+        <label for="add-portfolio-toggle" class="add-portfolio-button">Add a Portfolio</label>
+    </div>
+
+    <!-- Checkbox to control visibility -->
+    <input type="checkbox" id="add-portfolio-toggle">
+
+    <!-- Modal for Adding Portfolio -->
+    <div id="add-portfolio-modal">
+        <div id="add-portfolio-modal-content">
+            <h3>Add New Portfolio</h3>
+            <form action="#" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <label for="portfolio-name" >Portfolio Name:</label>
+                <input type="text" id="portfolio-name" name="portfolio_name" required><br><br>
+                <label for="portfolio-file">Select HTML File:</label>
+                <input type="file" id="portfolio-file" name="portfolio_file" accept=".html" required><br><br>
+                <!-- Buttons for Upload and Cancel -->
+                <div style="display: flex; justify-content: space-between;">
+                    <button type="submit" class="add-portfolio-button">Upload Portfolio</button>
+                    <label id="add-portfolio-modal-close" for="add-portfolio-toggle">Cancel</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Current Portfolio -->
+        <div class="current-portfolio">
+            {% if current_portfolio %}
+                 <div>
+                    <h3>Your Current Portfolio</h3>
+                     {% for portfolio in current_portfolio %}
+                    <p>{{ portfolio.Portfolio_Name }}:
+                    <a href="{{ portfolio.Portfolio.url }}" target="_blank">View</a>
+                    </p>
+            {% endfor %}
+
+            {% else %}
+                <p>No current portfolio set.</p>
+            {% endif %}
+
+                 </div>
+        </div>
+
+        <!-- Your Portfolios Table -->
+        <h3>Your Portfolios</h3>
+        <table class="portfolio-table">
+            <thead>
+                <tr>
+                    <th>Portfolio</th>
+                    <th>Link</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for record in display %}
+                <tr>
+                    <td>{{record.Portfolio_Name}}</td>
+                    <td><a href ="{{ record.Portfolio.url }}" target="blank">View </a></td>
+                    <td>
+                        <form method="POST" style="display:inline;" action= "{% url 'Make_Current_Portfolio' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="portfolio_id" value="{{ record.id }}">
+                            <button class="action-button" type="submit">
+                                {% if record.Status %}Current Portfolio{% else %}Make Current Portfolio{% endif %}
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

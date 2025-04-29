@@ -1,0 +1,34 @@
+# Virtual environment
+.venv/
+
+# Project SQLite database
+Project/db.sqlite3
+
+# Media files (user uploads, etc.)
+Project/media/
+
+# Django migrations (inside Jv_app)
+Project/Jv_app/migrations/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variable files
+.env
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.iml
+
+# PyCharm scratches (optional)
+scratches/
+Scratches and Consoles/
+
+# Log files
+*.log
+
+# Compiled shared object files
+*.so

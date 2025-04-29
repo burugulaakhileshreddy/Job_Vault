@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Jobs - Job Vault</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .heading {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .job-container {
+            width: 80%;
+            margin: 30px auto;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .filter-container select, .filter-container button {
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .view-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .view-btn:hover {
+            background-color: #45a049;
+        }
+        .add-note-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .add-note-btn:hover {
+            background-color: #45a049;
+        }
+        .note-input {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        Job Vault
+    </div>
+
+    <div class="heading">
+        <p>You've Applied  <span id="job-type-heading"></span></p>
+    </div>
+
+    <div class="job-container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Date Applied</th>
+                        <th>Platform</th>
+                        <th>Resume</th>
+                        <th>Cover Letter</th>
+                        <th>Application URL</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="job-list">
+                    {% for record in display %}
+                        <tr>
+                            <td>{{record.Company_Name}}</td>
+                            <td>{{record.Date}}</td>
+                            <td>{{record.Platform}}</td>
+                            <td><a href="{{record.Resume.url}}" target="blank">View Resume </a></td>
+                            <td><a href="{{record.Cover_Letter.url}}" target="blank">View Cover Letter</a></td>
+                            <td><a href="{{record.Link}}" target="blank">View Link</a></td>
+                            <td>{{record.Notes}}</td>
+
+                    {% endfor%}
+                        </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="note-input-container" style="display: none;">
+            <textarea id="note-input" class="note-input" placeholder="Enter your note here"></textarea>
+            <button class="add-note-btn" onclick="saveNote()">Save Note</button>
+        </div>
+    </div>
+</body>
+</html>
